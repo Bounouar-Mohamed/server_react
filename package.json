@@ -1,0 +1,27 @@
+{
+  "name": "app-react",
+  "version": "1.0.0",
+  "main": "App.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "serve": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Bounouar-Mohamed/App-React.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Bounouar-Mohamed/App-React/issues"
+  },
+  "homepage": "https://github.com/Bounouar-Mohamed/App-React#readme",
+  "description": "",
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  },
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "mysql": "^2.18.1"
+  }
+}
