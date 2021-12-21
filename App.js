@@ -18,7 +18,7 @@ app.listen(port, () => console.log('server running...'))
 const connection = new Pool({
       host: "localhost",
       user: "postgres",
-      database: "users",
+      database: "postgres",
       password : 'password',
       port : 5432
 });
@@ -32,13 +32,24 @@ app.post("/users", function (req, res,) {
   let nom = req.body.nom ;
   let prenom = req.body.prénom ;
   let email = req.body.email ;
-  let passsword = req.body.password ;
+  let password = req.body.password ;
 //  let confirmpassword = req.body.confirm_password ;
 
 
- connection.query( ` INSERT INTO "users" (nom, prenom, email, passsword) VALUES ($1, $2, $3, $4 )` , [nom, prenom, email, passsword], (error, results) => {
+ connection.query( ` INSERT INTO "users" (nom, prenom, email, password) VALUES ($1, $2, $3, $4 )` , [nom, prenom, email, password], (error, results) => {
     if (error) throw error;
     console.log('Inscription effectuée avec succès ' + results);
+
+  });
+})
+
+
+app.get('/users', function (req, res) {
+
+
+  connection.query(" SELECT * FROM users ", (error, results) => {
+    if (error) throw error;
+    res.send(results);
 
   });
 })

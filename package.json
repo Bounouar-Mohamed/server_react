@@ -10,18 +10,20 @@
     "type": "git",
     "url": "git+https://github.com/Bounouar-Mohamed/App-React.git"
   },
-  "author": "",
+  "author": "Mohamed",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/Bounouar-Mohamed/App-React/issues"
   },
   "homepage": "https://github.com/Bounouar-Mohamed/App-React#readme",
-  "description": "",
   "devDependencies": {
     "nodemon": "^2.0.15"
   },
   "dependencies": {
     "body-parser": "^1.19.0",
-    "mysql": "^2.18.1"
-  }
+    "express": "^4.17.1",
+    "mysql": "^2.18.1",
+    "pg": "^8.7.1"
+  },
+  "description": ""
 }

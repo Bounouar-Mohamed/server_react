@@ -4,5 +4,5 @@ CREATE TABLE IF NOT EXISTS users (
     nom VARCHAR NULL,
     prenom VARCHAR NULL,
     email VARCHAR NULL,
-    passsword VARCHAR  NOT NULL
+    password VARCHAR  NOT NULL
 );
