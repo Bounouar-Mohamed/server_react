@@ -1,9 +1,9 @@
 
 CREATE TABLE IF NOT EXISTS users (
     users_ID SERIAL PRIMARY KEY,
-    nom VARCHAR NULL,
-    prenom VARCHAR NULL,
-    email VARCHAR NULL,
+    nom VARCHAR NOT NULL,
+    prenom VARCHAR NOT NULL,
+    email VARCHAR NOT NULL,
     password VARCHAR  NOT NULL
 );
 
@@ -18,9 +18,9 @@ CREATE TABLE IF NOT EXISTS articles (
 CREATE TABLE IF NOT EXISTS sneakers (
 
     users_ID SERIAL PRIMARY KEY,
-    name VARCHAR NULL,
-    dated VARCHAR NULL,
-    price VARCHAR NULL
+    name VARCHAR NOT NULL,
+    sexe VARCHAR NOT NULL,
+    price VARCHAR NOT NULL
 
 );
 
