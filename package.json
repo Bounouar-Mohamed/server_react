@@ -27,6 +27,7 @@
     "cookie-parser": "^1.4.6",
     "express": "^4.17.1",
     "express-session": "^1.17.2",
+    "heroku": "^7.60.2",
     "mysql": "^2.18.1",
     "pg": "^8.7.1"
   },
