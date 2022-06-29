@@ -4,8 +4,7 @@
   "main": "App.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "serve": "nodemon app.js",
-    "heroku-postbuild":"cd client && npm install && npm run build"
+    "serve": "nodemon app.js"
   },
   "repository": {
     "type": "git",
