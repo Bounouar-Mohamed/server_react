@@ -29,6 +29,11 @@ const connection = new Pool({
 });
 console.log("Connexion réussie à la base de données");
 
+app.get('/', function (req, res) {
+
+  res.send('serve run')
+
+})
 
 
 app.post("/users", function (req, res,) {
