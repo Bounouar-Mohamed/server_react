@@ -74,7 +74,6 @@ app.post("/users", function (req, res,) {
 
 app.post("/login", function async(req, res,) {
 
-
   let email = req.body.email;
   let password = req.body.password;
   let infos = []
@@ -84,7 +83,7 @@ app.post("/login", function async(req, res,) {
     `SELECT * FROM users WHERE email = $1 AND password= $2  `,
     [email, password], (error, result) => {
       if (error) throw error;
-      // console.log(result.rows)
+
 
       if (result.rows.length === 0) {
         res.json({ error: "Email ou Mot de passe incorrect !!", cookies: req.session })
@@ -98,7 +97,13 @@ app.post("/login", function async(req, res,) {
 
       }
 
-    })
+    }).catch(err => {
+      if (err.response) {
+        console.log(err.response)
+      } else if (err.request) {
+        console.log(err.request)
+      }
+  })
 })
 
 
@@ -136,7 +141,7 @@ app.post("/sneakers", function (req, res,) {
 
 
 
-app.get('/profile', function (req, res) {
+app.get(cors('/profile', function (req, res) {
 
 
   connection.query("SELECT * FROM users WHERE users_ID=(SELECT max(users_ID) FROM users) ", (error, results) => {
@@ -146,7 +151,7 @@ app.get('/profile', function (req, res) {
   });
 
 
-})
+}))
 
 
 
