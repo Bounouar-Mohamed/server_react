@@ -72,7 +72,7 @@ app.post("/users", function (req, res,) {
 })
 
 
-app.post("/login", function async(req, res,) {
+app.post(cors("/login", function async(req, res,) {
 
   let email = req.body.email;
   let password = req.body.password;
@@ -103,8 +103,8 @@ app.post("/login", function async(req, res,) {
       } else if (err.request) {
         console.log(err.request)
       }
-  })
-})
+    })
+}))
 
 
 
@@ -141,7 +141,7 @@ app.post("/sneakers", function (req, res,) {
 
 
 
-app.get(cors('/profile', function (req, res) {
+app.get('/profile', function (req, res) {
 
 
   connection.query("SELECT * FROM users WHERE users_ID=(SELECT max(users_ID) FROM users) ", (error, results) => {
@@ -151,7 +151,7 @@ app.get(cors('/profile', function (req, res) {
   });
 
 
-}))
+})
 
 
 
