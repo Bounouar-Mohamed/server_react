@@ -31,14 +31,14 @@ const pool = new Pool({
 module.exports = pool;
 
 
-const connection = new Pool({
-  host: "localhost",
-  user: "postgres",
-  database: "postgres",
-  password: 'password',
-  port: 5432
+// const connection = new Pool({
+//   host: "localhost",
+//   user: "postgres",
+//   database: "postgres",
+//   password: 'password',
+//   port: 5432
 
-});
+// });
 console.log("Connexion réussie à la base de données");
 
 app.get('/', function (req, res) {
@@ -90,7 +90,7 @@ app.post("/login", function async(req, res,) {
   let infos = []
 
 
-  connection.query(
+  pool.query(
     `SELECT * FROM users WHERE email = $1 AND password= $2  `,
     [email, password], (error, result) => {
       if (error) throw error;
@@ -155,7 +155,7 @@ app.post("/sneakers", function (req, res,) {
 app.get('/profile', function (req, res) {
 
 
-  connection.query("SELECT * FROM users WHERE users_ID=(SELECT max(users_ID) FROM users) ", (error, results) => {
+  pool.query("SELECT * FROM users WHERE users_ID=(SELECT max(users_ID) FROM users) ", (error, results) => {
     if (error) throw error;
     res.send(results);
 
