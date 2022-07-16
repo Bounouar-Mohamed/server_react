@@ -1,6 +1,9 @@
 {
   "name": "app-react",
   "version": "1.0.0",
+  "engines": {
+    "node": "14.17.3"
+  },
   "main": "App.js",
   "scripts": {
     "dev": "react-scripts start",
