@@ -9,7 +9,6 @@
   "scripts": {
     "dev": "react-scripts start",
     "start": "node App.js",
-    "ng": "ng",
     "heroku-postbuild": "ng build --prod",
     "build": "ng build",
     "test": "react-scripts test --env=jsdom",
