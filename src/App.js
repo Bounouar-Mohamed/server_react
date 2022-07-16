@@ -72,7 +72,8 @@ app.post("/users", function (req, res,) {
 })
 
 
-app.post(cors("/login", function async(req, res,) {
+app.post("/login", function async(req, res,) {
+
 
   let email = req.body.email;
   let password = req.body.password;
@@ -103,8 +104,8 @@ app.post(cors("/login", function async(req, res,) {
       } else if (err.request) {
         console.log(err.request)
       }
-    })
-}))
+  })
+})
 
 
 
