@@ -2,16 +2,18 @@
   "name": "app-react",
   "version": "1.0.0",
   "engines": {
-    "node": "14.17.3"
+    "node": "14.17.3",
+    "npm": "8.12.1"
   },
   "main": "App.js",
   "scripts": {
     "dev": "react-scripts start",
     "start": "node App.js",
+    "ng": "ng",
+    "heroku-postbuild": "ng build --prod",
     "build": "ng build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "heroku-postbuild": "ng build --prod",
     "serve": "nodemon app.js"
   },
   "repository": {
