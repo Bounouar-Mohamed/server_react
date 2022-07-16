@@ -31,7 +31,7 @@ console.log("Connexion réussie à la base de données");
 
 app.get('/', function (req, res) {
 
-  res.send('serve run')
+  res.send('server run on port 4000')
 
 })
 
