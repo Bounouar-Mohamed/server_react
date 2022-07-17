@@ -32,11 +32,11 @@ app.listen(port, () => console.log('server running...'))
 
 
 const connection = new Pool({
-  host: {PG_HOST},
-  user: {PG_USER},
-  database: {PG_DATABASE},
-  password: {PG_PASSWORD},
-  port:{PG_PORT}
+  host: process.env.PG_HOST,
+  user: process.env.PG_USER,
+  database: process.env.PG_DATABASE,
+  password: process.env.PG_PASSWORD,
+  port:process.env.PG_PORT
 
 });
 console.log("Connexion réussie à la base de données");
