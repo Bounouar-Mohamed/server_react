@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser = require("body-parser");
 const app = express();
-const { Pool, Client } = require("pg");
+const { Pool } = require("pg");
 app.use(bodyParser.json());
 const axios = require('axios');
 const cheerio = require('cheerio');
@@ -22,29 +22,30 @@ app.listen(port, () => console.log('server running...'))
 
 //
 
-const isProduction = process.env.NODE_ENV === "production";
-const connectionString = `postgresql://${process.env.PG_USER}:${process.env.PG_PASSWORD}@${process.env.PG_HOST}:${process.env.PG_PORT}/${process.env.PG_DATABASE}`;
-const pool = new Pool({
-  connectionString: isProduction ? process.env.DATABASE_URL : connectionString,
-  ssl: {
-    rejectUnauthorized: false,
-  },
-});
+// const isProduction = process.env.NODE_ENV === "production";
+// const connectionString = `postgresql://${process.env.PG_USER}:${process.env.PG_PASSWORD}@${process.env.PG_HOST}:${process.env.PG_PORT}/${process.env.PG_DATABASE}`;
+// const pool = new Pool({
+//   connectionString: isProduction ? process.env.DATABASE_URL : connectionString,
+//   ssl: {
+//     rejectUnauthorized: false,
+//   },
+// });
 
-pool.connect();
+// pool.connect();
 
 //
 
 
 
-// const pool = new Pool({
-//   host: process.env.PG_HOST,
-//   user: process.env.PG_USER,
-//   database: process.env.PG_DATABASE,
-//   password: process.env.PG_PASSWORD,
-//   port: process.env.PG_PORT
+const pool = new Pool({
 
-// })
+  host: process.env.PG_HOST,
+  user: process.env.PG_USER,
+  database: process.env.PG_DATABASE,
+  password: process.env.PG_PASSWORD,
+  port: process.env.PG_PORT
+
+})
 
 
 // pool.connect()
@@ -91,7 +92,7 @@ app.post("/users", function (req, res,) {
 })
 
 
-app.post("/login", function async(req, res,) {
+app.post("/login", function (req, res,) {
 
 
   let email = req.body.email;
@@ -137,7 +138,8 @@ app.post("/sneakers", function (req, res,) {
 
       const htmlData = res.data
       const $ = cheerio.load(htmlData)
-      res.send(res)
+      // res.send(res)
+      console.log(res)
       //const Sneakers = []
 
       $('.product-card__body', htmlData).each((index, element) => {
