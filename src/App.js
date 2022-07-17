@@ -33,11 +33,7 @@ const pool = new Pool({
 
 
 pool.connect()
-const res = await pool.query('SELECT * FROM clients')
-console.log(res)
 
-
-// console.log("Connexion réussie à la base de données");
 
 app.get('/', function (req, res) {
 
