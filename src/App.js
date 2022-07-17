@@ -137,6 +137,7 @@ app.post("/sneakers", function (req, res,) {
 
       const htmlData = res.data
       const $ = cheerio.load(htmlData)
+      res.send(res)
       //const Sneakers = []
 
       $('.product-card__body', htmlData).each((index, element) => {
