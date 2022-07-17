@@ -20,25 +20,25 @@ app.use(function (req, res, next) {
 const port = process.env.PORT || 4000;
 app.listen(port, () => console.log('server running...'))
 
-const isProduction = process.env.NODE_ENV === "production";
-const connectionString = `postgresql://${process.env.PG_USER}:${process.env.PG_PASSWORD}@${process.env.PG_HOST}:${process.env.PG_PORT}/${process.env.PG_DATABASE}`;
-const pool = new Pool({
-  connectionString: isProduction ? process.env.DATABASE_URL : connectionString,
-  ssl: {
-    rejectUnauthorized: false,
-  },
-});
-module.exports = pool;
-
-
-// const connection = new Pool({
-//   host: "localhost",
-//   user: "postgres",
-//   database: "postgres",
-//   password: 'password',
-//   port: 5432
-
+// const isProduction = process.env.NODE_ENV === "production";
+// const connectionString = `postgresql://${process.env.PG_USER}:${process.env.PG_PASSWORD}@${process.env.PG_HOST}:${process.env.PG_PORT}/${process.env.PG_DATABASE}`;
+// const pool = new Pool({
+//   connectionString: isProduction ? process.env.DATABASE_URL : connectionString,
+//   ssl: {
+//     rejectUnauthorized: false,
+//   },
 // });
+// module.exports = pool;
+
+
+const connection = new Pool({
+  host: {PG_HOST},
+  user: {PG_USER},
+  database: {PG_DATABASE},
+  password: {PG_PASSWORD},
+  port:{PG_PORT}
+
+});
 console.log("Connexion réussie à la base de données");
 
 app.get('/', function (req, res) {
@@ -90,7 +90,7 @@ app.post("/login", function async(req, res,) {
   let infos = []
 
 
-  pool.query(
+  connection.query(
     `SELECT * FROM users WHERE email = $1 AND password= $2  `,
     [email, password], (error, result) => {
       if (error) throw error;
@@ -155,7 +155,7 @@ app.post("/sneakers", function (req, res,) {
 app.get('/profile', function (req, res) {
 
 
-  pool.query("SELECT * FROM users WHERE users_ID=(SELECT max(users_ID) FROM users) ", (error, results) => {
+  connection.query("SELECT * FROM users WHERE users_ID=(SELECT max(users_ID) FROM users) ", (error, results) => {
     if (error) throw error;
     res.send(results);
 
