@@ -21,6 +21,7 @@ const port = process.env.PORT || 4000;
 app.listen(port, () => console.log('server running...'))
 
 //
+
 const isProduction = process.env.NODE_ENV === "production";
 const connectionString = `postgresql://${process.env.PG_USER}:${process.env.PG_PASSWORD}@${process.env.PG_HOST}:${process.env.PG_PORT}/${process.env.PG_DATABASE}`;
 const pool = new Pool({
@@ -29,6 +30,9 @@ const pool = new Pool({
     rejectUnauthorized: false,
   },
 });
+
+pool.connect();
+
 //
 
 
