@@ -149,11 +149,11 @@ app.post("/sneakers", function (req, res,) {
         const price = $(element).children().find('.product-price').text()
 
 
-        // pool.query(` INSERT INTO "sneakers" (name,sexe,price) VALUES ($1,$2,$3)`, [name, sexe, price], (error, results) => {
-        //   if (error) throw error;
-        //   console.log('Inscription effectuée avec succès ' + results);
+        pool.query(` INSERT INTO "sneakers" (name,sexe,price) VALUES ($1,$2,$3)`, [name, sexe, price], (error, results) => {
+          if (error) throw error;
+          console.log('Inscription effectuée avec succès ' + results);
 
-        // });
+        });
 
       })
       //console.log(Sneakers)

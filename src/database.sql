@@ -23,4 +23,3 @@ CREATE TABLE IF NOT EXISTS sneakers (
     price VARCHAR NOT NULL
 
 );
-
