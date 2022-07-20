@@ -106,8 +106,7 @@ app.post("/login", function (req, res,) {
   pool.query(
     `SELECT * FROM users WHERE email = $1 AND password= $2  `,
     [email, password], (error, result) => {
-      // if (error) throw error;  //  <--- peut être ici
-
+      if (error) throw error; 
 
       if (result.rows.length === 0) {
         res.json({ error: "Email ou Mot de passe incorrect !!", cookies: req.session })
