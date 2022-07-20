@@ -43,7 +43,10 @@ const pool = new Pool({
   user: process.env.PG_USER,
   database: process.env.PG_DATABASE,
   password: process.env.PG_PASSWORD,
-  port: process.env.PG_PORT
+  port: process.env.PG_PORT,
+  ssl: {
+        rejectUnauthorized: false,
+      },
 
 })
 
@@ -103,7 +106,7 @@ app.post("/login", function (req, res,) {
   pool.query(
     `SELECT * FROM users WHERE email = $1 AND password= $2  `,
     [email, password], (error, result) => {
-      if (error) throw error;
+      if (error) throw error;  //  <--- peut être ici
 
 
       if (result.rows.length === 0) {
@@ -156,7 +159,7 @@ app.post("/sneakers", function (req, res,) {
         });
 
       })
-      //console.log(Sneakers)
+
     }).catch(err => console.error(err))
 
 })
@@ -215,8 +218,3 @@ app.post("/articles", function (req, res,) {
   });
 
 })
-
-
-
-
-
