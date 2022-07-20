@@ -174,6 +174,7 @@ app.get('/profile', function (req, res) {
   pool.query("SELECT * FROM users WHERE users_ID=(SELECT max(users_ID) FROM users) ", (error, results) => {
     if (error) throw error;
     res.send(results);
+    console.log(results)
 
   });
 
