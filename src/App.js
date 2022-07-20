@@ -63,8 +63,8 @@ app.get('/', function (req, res) {
 
 app.post("/users", function (req, res,) {
 
-  let nom = req.body.firstname;
-  let prenom = req.body.lastname;
+  let nom = req.body.firstName;
+  let prenom = req.body.lastName;
   let email = req.body.email;
   let password = req.body.password;
 
@@ -87,7 +87,7 @@ app.post("/users", function (req, res,) {
         res.json({ message: "Login" })
         console.log('LOGIN')
 
-        pool.query(` INSERT INTO "users" (nom, prenom, email, password) VALUES ($1, $2, $3, $4 )`, [nom, prenom, email, password], (error, results) => {
+        pool.query(` INSERT INTO "users" (firstName, lastName, email, password) VALUES ($1, $2, $3, $4 )`, [nom, prenom, email, password], (error, results) => {
           if (error) throw error;
           console.log('Inscription effectuée avec succès ');
 
