@@ -20,35 +20,35 @@ app.use(function (req, res, next) {
 const port = process.env.PORT || 4000;
 app.listen(port, () => console.log('server running...'))
 
-//
-
-// const isProduction = process.env.NODE_ENV === "production";
-// const connectionString = `postgresql://${process.env.PG_USER}:${process.env.PG_PASSWORD}@${process.env.PG_HOST}:${process.env.PG_PORT}/${process.env.PG_DATABASE}`;
-// const pool = new Pool({
-//   connectionString: isProduction ? process.env.DATABASE_URL : connectionString,
-//   ssl: {
-//     rejectUnauthorized: false,
-//   },
-// });
-
-// pool.connect();
-
-//
 
 
-
+const isProduction = process.env.NODE_ENV === "production";
+const connectionString = `postgresql://${process.env.PG_USER}:${process.env.PG_PASSWORD}@${process.env.PG_HOST}:${process.env.PG_PORT}/${process.env.PG_DATABASE}`;
 const pool = new Pool({
-
-  host: process.env.PG_HOST,
-  user: process.env.PG_USER,
-  database: process.env.PG_DATABASE,
-  password: process.env.PG_PASSWORD,
-  port: process.env.PG_PORT,
+  connectionString: isProduction ? process.env.DATABASE_URL : connectionString,
   ssl: {
-        rejectUnauthorized: false,
-      },
+    rejectUnauthorized: false,
+  },
+});
 
-})
+pool.connect();
+
+
+
+
+
+// const pool = new Pool({
+
+//   host: process.env.PG_HOST,
+//   user: process.env.PG_USER,
+//   database: process.env.PG_DATABASE,
+//   password: process.env.PG_PASSWORD,
+//   port: process.env.PG_PORT,
+//   ssl: {
+//         rejectUnauthorized: false,
+//       },
+
+// })
 
 
 // pool.connect()
@@ -81,9 +81,11 @@ app.post("/users", function (req, res,) {
 
       if (result.rows.length !== 0) {
         res.status(200).json({ error: "Email déjà existant !!" })
+        console.log(error, ":Email déjà existant !!")
       }
       else {
         res.json({ message: "Login" })
+        console.log('LOGIN')
 
         pool.query(` INSERT INTO "users" (nom, prenom, email, password) VALUES ($1, $2, $3, $4 )`, [nom, prenom, email, password], (error, results) => {
           if (error) throw error;
@@ -106,16 +108,18 @@ app.post("/login", function (req, res,) {
   pool.query(
     `SELECT * FROM users WHERE email = $1 AND password= $2  `,
     [email, password], (error, result) => {
-      if (error) throw error; 
+      if (error) throw error;
 
       if (result.rows.length === 0) {
         res.json({ error: "Email ou Mot de passe incorrect !!", cookies: req.session })
+        console.log(error, ": Email ou Mot de passe incorrect !!")
       }
 
       else {
 
         infos.push(result.rows[0])
         res.json({ message: "Login", user: infos, cookies: req.session })
+        console.log(message, ":Login", infos)
         // res.send(infos)
 
       }
@@ -123,8 +127,6 @@ app.post("/login", function (req, res,) {
     }).catch(err => {
       if (err.response) {
         console.log(err.response)
-      } else if (err.request) {
-        console.log(err.request)
       }
     })
 })
