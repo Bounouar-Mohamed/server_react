@@ -74,7 +74,7 @@ app.post("/users", function (req, res,) {
 
 
   pool.query(
-    `SELECT nom FROM users WHERE email = $1`,
+    `SELECT nom FROM "users" WHERE email = $1`,
     [email],
     (err, result) => {
 
