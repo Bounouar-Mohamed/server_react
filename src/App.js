@@ -107,11 +107,11 @@ app.post("/login", function (req, res,) {
   let password = req.body.password;
   let infos = []
 
-  console.log( 'res',res)
   console.log( 'req',req)
 
+
   pool.query(
-    `SELECT * FROM users WHERE email = $1 AND password= $2  `,
+    `SELECT * FROM "users" WHERE email = $1 AND password= $2  `,
     [email, password], (error, result) => {
       if (error) throw error;
 
