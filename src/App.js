@@ -66,8 +66,8 @@ app.post("/users", function (req, res,) {
 
   console.log('response server', req.body)
 
-  let nom = req.body.firstname;
-  let prenom = req.body.lastname;
+  let nom = req.body.firstName;
+  let prenom = req.body.lastName;
   let email = req.body.email;
   let password = req.body.password;
 
@@ -91,7 +91,7 @@ app.post("/users", function (req, res,) {
         console.log(error, ":Email déjà existant !!")
       }
       else {
-        
+
         res.json({ message: "Login" })
         console.log('LOGIN')
 
