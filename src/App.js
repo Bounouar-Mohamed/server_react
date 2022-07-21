@@ -78,15 +78,16 @@ app.post("/users", function (req, res,) {
     [email],
     (err, result) => {
 
+      console.log('test email', result)
+
       if (err) {
         return res.send({ err: err })
       }
 
-      console.log(result)
 
       if (result.rows.length !== 0) {
 
-        console.log(result.rows.length)
+        console.log(result.rows)
         res.status(200).json({ error: "Email déjà existant !!" })
         console.log(error, ":Email déjà existant !!")
       }
