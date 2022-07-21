@@ -64,12 +64,12 @@ app.get('/', function (req, res) {
 app.post("/users", function (req, res,) {
 
 
-  // console.log(res)
+  console.log(req.body)
 
-  let nom = res.body.firstname;
-  let prenom = res.body.lastname;
-  let email = res.body.email;
-  let password = res.body.password;
+  let nom = req.body.firstname;
+  let prenom = req.body.lastname;
+  let email = req.body.email;
+  let password = req.body.password;
 
 
 
