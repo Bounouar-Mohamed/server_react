@@ -63,8 +63,11 @@ app.get('/', function (req, res) {
 
 app.post("/users", function (req, res,) {
 
-  let nom = req.body.firstName;
-  let prenom = req.body.lastName;
+
+  console.log(res)
+
+  let nom = req.body.firstname;
+  let prenom = req.body.lastname;
   let email = req.body.email;
   let password = req.body.password;
 
