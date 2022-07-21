@@ -64,7 +64,7 @@ app.get('/', function (req, res) {
 app.post("/users", function (req, res,) {
 
 
-  console.log(req.body)
+  console.log('response server', req.body)
 
   let nom = req.body.firstname;
   let prenom = req.body.lastname;
@@ -82,11 +82,16 @@ app.post("/users", function (req, res,) {
         return res.send({ err: err })
       }
 
+      console.log(result)
+
       if (result.rows.length !== 0) {
+
+        console.log(result.rows.length)
         res.status(200).json({ error: "Email déjà existant !!" })
         console.log(error, ":Email déjà existant !!")
       }
       else {
+        
         res.json({ message: "Login" })
         console.log('LOGIN')
 
@@ -113,11 +118,12 @@ app.post("/login", function (req, res,) {
   pool.query(
     `SELECT * FROM "users" WHERE email = $1 AND password= $2`,
     [email, password], (error, result) => {
+
       if (error) throw error;
 
       if (result.rows.length === 0) {
-      //  return res.json({ error: "Email ou Mot de passe incorrect !!", cookies: req.session })
-       return res.json({ error: "Email ou Mot de passe incorrect !!"})
+        //  return res.json({ error: "Email ou Mot de passe incorrect !!", cookies: req.session })
+        return res.json({ error: "Email ou Mot de passe incorrect !!" })
       }
 
       else {
