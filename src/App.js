@@ -123,7 +123,7 @@ app.post("/login", function (req, res,) {
       else {
         infos.push(result.rows[0])
         // return res.json({ message: "Login", user: infos, cookies: req.session })
-        return res.json({ message: "Login" })
+        return res.json({ message: "Login", user: infos })
         // res.send(infos)
       }
 
