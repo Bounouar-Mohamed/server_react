@@ -107,7 +107,7 @@ app.post("/login", function (req, res,) {
   let password = req.body.password;
   let infos = []
 
-  console.log( 'req',req)
+  // console.log( 'req',req)
 
 
   pool.query(
