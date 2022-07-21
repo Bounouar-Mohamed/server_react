@@ -129,10 +129,6 @@ app.post("/login", function (req, res,) {
 
       }
 
-    }).catch(err => {
-      if (err.response) {
-        console.log(err.response)
-      }
     })
 })
 
