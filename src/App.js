@@ -116,17 +116,14 @@ app.post("/login", function (req, res,) {
       if (error) throw error;
 
       if (result.rows.length === 0) {
-       return res.json({ error: "Email ou Mot de passe incorrect !!", cookies: req.session }),
-        console.log(error, ": Email ou Mot de passe incorrect !!")
+       return res.json({ error: "Email ou Mot de passe incorrect !!", cookies: req.session })
       }
 
       else {
 
         infos.push(result.rows[0])
-        return res.json({ message: "Login", user: infos, cookies: req.session }),
-        console.log(message, ":Login", infos)
+        return res.json({ message: "Login", user: infos, cookies: req.session })
         // res.send(infos)
-
       }
 
     })
