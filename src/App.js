@@ -21,14 +21,6 @@ const port = process.env.PORT || 4000;
 app.listen(port, () => console.log('server running...'))
 
 
-const connection = new Pool({
-  host: "localhost",
-  user: "postgres",
-  database: "postgres",
-  password: 'password',
-  port: 5432
-})
-
 const isProduction = process.env.NODE_ENV === "production";
 const connectionString = `postgresql://${process.env.PG_USER}:${process.env.PG_PASSWORD}@${process.env.PG_HOST}:${process.env.PG_PORT}/${process.env.PG_DATABASE}`;
 const pool = new Pool({
