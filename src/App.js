@@ -5,6 +5,7 @@ const { Pool } = require("pg");
 app.use(bodyParser.json());
 const axios = require('axios');
 const cheerio = require('cheerio');
+const mysql = require('mysql');
 
 
 
@@ -21,36 +22,25 @@ const port = process.env.PORT || 4000;
 app.listen(port, () => console.log('server running...'))
 
 
-const isProduction = process.env.NODE_ENV === "production";
-const connectionString = `postgresql://${process.env.DB_USER}:${process.env.DB_PASS}@${process.env.CLOUD_SQL_CONNECTION_NAME}:${process.env.PG_PORT}/${process.env.DB_NAME}`;
-const pool = new Pool({
-  connectionString: isProduction ? connectionString : connectionString,
-  ssl: {
-    rejectUnauthorized: false,
-  },
+// const isProduction = process.env.NODE_ENV === "production";
+// const connectionString = `postgresql://${process.env.DB_USER}:${process.env.DB_PASS}@${process.env.CLOUD_SQL_CONNECTION_NAME}:${process.env.PG_PORT}/${process.env.DB_NAME}`;
+// const pool = new Pool({
+//   connectionString: isProduction ? connectionString : connectionString,
+//   ssl: {
+//     rejectUnauthorized: false,
+//   },
+// });
+
+// pool.connect();
+
+
+const connection = mysql.createConnection({
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  database: process.env.DB_DATABASE,
+  password: process.env.DB_PASS
 });
 
-pool.connect();
-
-
-
-
-
-// const pool = new Pool({
-
-//   host: process.env.PG_HOST,
-//   user: process.env.PG_USER,
-//   database: process.env.PG_DATABASE,
-//   password: process.env.PG_PASSWORD,
-//   port: process.env.PG_PORT,
-//   ssl: {
-//         rejectUnauthorized: false,
-//       },
-
-// })
-
-
-// pool.connect()
 
 
 app.get('/', function (req, res) {
@@ -73,7 +63,7 @@ app.post("/users", function (req, res,) {
 
 
 
-  pool.query(
+  connection.query(
     `SELECT * FROM "users" WHERE email = $1`,
     [email],
     (err, result) => {
@@ -96,7 +86,7 @@ app.post("/users", function (req, res,) {
         res.json({ message: "Login" })
         console.log('LOGIN')
 
-        pool.query(` INSERT INTO "users" (firstName, lastName, email, password) VALUES ($1, $2, $3, $4 )`, [nom, prenom, email, password], (error, results) => {
+        connection.query(` INSERT INTO "users" (firstName, lastName, email, password) VALUES ($1, $2, $3, $4 )`, [nom, prenom, email, password], (error, results) => {
           if (error) throw error;
           console.log('Inscription effectuée avec succès ');
 
@@ -116,7 +106,7 @@ app.post("/login", function (req, res,) {
   // console.log( 'req',req)
 
 
-  pool.query(
+  connection.query(
     `SELECT * FROM "users" WHERE email = $1 AND password= $2`,
     [email, password], (error, result) => {
 
@@ -159,7 +149,7 @@ app.post("/sneakers", function (req, res,) {
         const price = $(element).children().find('.product-price').text()
 
 
-        pool.query(` INSERT INTO "sneakers" (name,sexe,price) VALUES ($1,$2,$3)`, [name, sexe, price], (error, results) => {
+        connection.query(` INSERT INTO "sneakers" (name,sexe,price) VALUES ($1,$2,$3)`, [name, sexe, price], (error, results) => {
           if (error) throw error;
           console.log('Inscription effectuée avec succès ' + results);
 
@@ -177,7 +167,7 @@ app.post("/sneakers", function (req, res,) {
 app.get('/profile', function (req, res) {
 
 
-  pool.query("SELECT * FROM users WHERE users_ID=(SELECT max(users_ID) FROM users) ", (error, results) => {
+  connection.query("SELECT * FROM users WHERE users_ID=(SELECT max(users_ID) FROM users) ", (error, results) => {
     if (error) throw error;
     res.send(results);
     console.log(results)
@@ -192,7 +182,7 @@ app.get('/profile', function (req, res) {
 app.get('/users', function (req, res) {
 
 
-  pool.query("SELECT * FROM users ", (error, results) => {
+  connection.query("SELECT * FROM users ", (error, results) => {
     if (error) throw error;
     res.send(results);
 
@@ -203,7 +193,7 @@ app.get('/users', function (req, res) {
 app.get('/sneakers', function (req, res) {
 
 
-  pool.query(" SELECT * FROM sneakers", (error, results) => {
+  connection.query(" SELECT * FROM sneakers", (error, results) => {
     if (error) throw error;
     res.send(results);
 
@@ -219,7 +209,7 @@ app.post("/articles", function (req, res,) {
   console.log(article)
 
 
-  pool.query(` INSERT INTO "articles" (article) VALUES ($1)`, [article], (error, results) => {
+  connection.query(` INSERT INTO "articles" (article) VALUES ($1)`, [article], (error, results) => {
     if (error) throw error;
     console.log('Inscription effectuée avec succès ' + results);
 
