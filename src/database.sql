@@ -1,0 +1,25 @@
+
+CREATE TABLE IF NOT EXISTS users (
+    users_ID SERIAL PRIMARY KEY,
+    firstName VARCHAR NOT NULL,
+    lastName VARCHAR NOT NULL,
+    email VARCHAR NOT NULL,
+    password VARCHAR  NOT NULL
+);
+
+
+CREATE TABLE IF NOT EXISTS articles (
+
+    users_ID SERIAL PRIMARY KEY,
+    article VARCHAR NULL
+
+);
+
+CREATE TABLE IF NOT EXISTS sneakers (
+
+    users_ID SERIAL PRIMARY KEY,
+    name VARCHAR NOT NULL,
+    sexe VARCHAR NOT NULL,
+    price VARCHAR NOT NULL
+
+);
