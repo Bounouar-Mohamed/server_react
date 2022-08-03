@@ -34,6 +34,7 @@ app.listen(port, () => console.log('server running...'))
 // pool.connect();
 
 
+
 const connection = new Pool ({
   
   host: process.env.DB_HOST,
@@ -43,6 +44,13 @@ const connection = new Pool ({
 
 });
 
+connection.connect(function(err) {
+  if (err) {
+    console.error('Error connecting: ' + err.stack);
+    return;
+  }
+  console.log('Connected as thread id: ' + connection.threadId);
+});
 
 
 app.get('/', function (req, res) {
