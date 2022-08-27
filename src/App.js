@@ -5,6 +5,7 @@ const { Pool } = require("pg");
 app.use(bodyParser.json());
 const axios = require('axios');
 const cheerio = require('cheerio');
+const { response } = require('express');
 
 
 
@@ -34,24 +35,6 @@ const pool = new Pool({
 pool.connect();
 
 
-
-
-
-// const pool = new Pool({
-
-//   host: process.env.PG_HOST,
-//   user: process.env.PG_USER,
-//   database: process.env.PG_DATABASE,
-//   password: process.env.PG_PASSWORD,
-//   port: process.env.PG_PORT,
-//   ssl: {
-//         rejectUnauthorized: false,
-//       },
-
-// })
-
-
-// pool.connect()
 
 
 app.get('/', function (req, res) {
@@ -96,11 +79,16 @@ app.post("/users", function (req, res,) {
         res.json({ message: "Login" })
         console.log('LOGIN')
 
-        pool.query(` INSERT INTO "users" (firstName, lastName, email, password) VALUES ($1, $2, $3, $4 )`, [nom, prenom, email, password], (error, results) => {
+        pool.query(` INSERT INTO "users" (firstName, lastName, email, password) VALUES ($1, $2, $3, $4 )`, [nom, prenom, email, password], (error, result) => {
           if (error) throw error;
           console.log('Inscription effectuée avec succès ');
 
-        })
+        }),
+          pool.query(`SELECT * FROM "users" WHERE email = $1`, [email], (error, results) => {
+            if (error) throw error;
+            res.json({ user: results.rows[0] });
+          })
+
       }
     })
 })
