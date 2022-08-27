@@ -76,7 +76,7 @@ app.post("/users", function (req, res,) {
       }
       else {
 
-        res.json({ message: "Login" })
+
         console.log('LOGIN')
 
         pool.query(` INSERT INTO "users" (firstName, lastName, email, password) VALUES ($1, $2, $3, $4 )`, [nom, prenom, email, password], (error, result) => {
@@ -86,7 +86,7 @@ app.post("/users", function (req, res,) {
         }),
           pool.query(`SELECT * FROM "users" WHERE email = $1`, [email], (error, results) => {
             if (error) throw error;
-            res.json({ user: results.rows[0] });
+            res.json({  message: "Login",user: results.rows[0] });
           })
 
       }
