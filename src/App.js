@@ -164,18 +164,18 @@ app.post("/sneakers", function (req, res,) {
 
 app.post('/delete', function (req, res) {
 
-  const id = parseInt(req.body.id)
+  // const id = parseInt(req.body.id)
   console.log('res', res.body.id)
   console.log('res', res.body)
   console.log('req', req.body.id)
   console.log('req', req.body)
-  // console.log(res.body.id)
 
-  pool.query('DELETE FROM users WHERE id = $1', [id], (error, results) => {
-    if (error) throw error;
-    res.json({ message: `User deleted with ID: ${id}` })
 
-  });
+  // pool.query('DELETE FROM users WHERE id = $1', [id], (error, results) => {
+  //   if (error) throw error;
+  //   res.json({ message: `User deleted with ID: ${id}` })
+
+  // });
 })
 
 
