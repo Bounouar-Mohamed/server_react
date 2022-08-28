@@ -169,7 +169,7 @@ app.post('/delete', function (req, res) {
   console.log('req id', req.body.id)
 
 
-  pool.query('DELETE FROM users WHERE id = $1', [id], (error, results) => {
+  pool.query('DELETE FROM users WHERE users_id = $1', [id], (error, results) => {
     if (error) throw error;
 
     res.json({ message: `User deleted with ID: ${id}` })
