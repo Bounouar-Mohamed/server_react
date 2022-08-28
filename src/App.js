@@ -164,7 +164,7 @@ app.post("/sneakers", function (req, res,) {
 
 app.post('/delete', function (req, res) {
 
-  // const id = parseInt(request.params.id)
+  const id = parseInt(req.body.id)
   console.log('res', res.body.id)
   console.log('res', res.body)
   console.log('req', req.body.id)
