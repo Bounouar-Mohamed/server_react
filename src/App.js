@@ -72,7 +72,7 @@ app.post("/users", function (req, res,) {
 
         console.log(result.rows)
         res.status(200).json({ error: "Email déjà existant !!" })
-        console.log(error, ":Email déjà existant !!")
+        console.log("Email déjà existant !!")
       }
 
       else {
