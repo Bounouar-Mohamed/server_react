@@ -74,8 +74,8 @@ app.post("/users", function (req, res,) {
         res.status(200).json({ error: "Email déjà existant !!" })
         console.log(error, ":Email déjà existant !!")
       }
-      else {
 
+      else {
 
         console.log('LOGIN')
 
@@ -86,7 +86,7 @@ app.post("/users", function (req, res,) {
         }),
           pool.query(`SELECT * FROM "users" WHERE email = $1`, [email], (error, results) => {
             if (error) throw error;
-            res.json({  message: "Login",user: results.rows[0] });
+            res.json({ message: "Login", user: results.rows[0] });
           })
 
       }
@@ -162,17 +162,17 @@ app.post("/sneakers", function (req, res,) {
 
 
 
-app.get('/profile', function (req, res) {
+app.post('/delete', function (req, res) {
 
+  // const id = parseInt(request.params.id)
 
-  pool.query("SELECT * FROM users WHERE users_ID=(SELECT max(users_ID) FROM users) ", (error, results) => {
+  console.log(req.body.users_id)
+
+  pool.query('DELETE FROM users WHERE id = $1', [id], (error, results) => {
     if (error) throw error;
-    res.send(results);
-    console.log(results)
+    res.json({message:`User deleted with ID: ${id}`})
 
   });
-
-
 })
 
 
