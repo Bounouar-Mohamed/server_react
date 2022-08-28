@@ -165,9 +165,8 @@ app.post("/sneakers", function (req, res,) {
 app.post('/delete', function (req, res) {
 
   // const id = parseInt(request.params.id)
-  console.log('res', res)
-  console.log('req', req)
-  console.log(req.body.users_id)
+  console.log('res', res.body.id)
+  console.log(res.body.id)
 
   pool.query('DELETE FROM users WHERE id = $1', [id], (error, results) => {
     if (error) throw error;
