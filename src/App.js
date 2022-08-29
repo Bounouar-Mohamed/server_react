@@ -177,6 +177,23 @@ app.post('/delete', function (req, res) {
 })
 
 
+app.post('/update', function (req, res) {
+
+  // const id = (req.body.id)
+  // const firstname = (req.body.firstname)
+  // const lastname = (req.body.lastname)
+
+  console.log('req id', req.body)
+
+
+  // pool.query('UPDATE users SET Fistname = $1, email = $2 WHERE id = $3', [id, firstname, lastname], (error, results) => {
+  //   if (error) throw error;
+
+  //   res.json({ message: `User update with ID: ${id}` })
+  // });
+})
+
+
 
 app.get('/users', function (req, res) {
 
