@@ -183,14 +183,12 @@ app.post('/update', function (req, res) {
   const firstname = (req.body.firstname)
   const lastname = (req.body.lastname)
 
-  console.log('req id', req.body.firstname)
 
+  pool.query('UPDATE users SET Fistname = $1, email = $2 WHERE id = $3', [id, firstname, lastname], (error, results) => {
+    if (error) throw error;
 
-  // pool.query('UPDATE users SET Fistname = $1, email = $2 WHERE id = $3', [id, firstname, lastname], (error, results) => {
-  //   if (error) throw error;
-
-  //   res.json({ message: `User update with ID: ${id}` })
-  // });
+    res.json({ message: `User update with ID: ${id}` })
+  });
 })
 
 
