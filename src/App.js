@@ -144,12 +144,11 @@ axios(URL)
     $('.product-card__body', htmlData).each((index, element) => {
 
       const name = $(element).children().find('.product-card__title').text()
-      // const sexe = $(element).children().find('.product-card__subtitle').text()
-      // const price = $(element).children().find('.product-price').text()
+      const sexe = $(element).children().find('.product-card__subtitle').text()
+      const price = $(element).children().find('.product-price').text()
 
 
-      pool.query(` INSERT INTO "sneakers" (name) VALUES ($1)`, [name], (error, results) => {
-        console.log(name)
+      pool.query(` INSERT INTO "testsneakers" (name,sexe,price) VALUES ($1,$2,$3)`, [name, sexe, price], (error, results) => {
 
         if (error) throw error;
         console.log('Inscription effectuée avec succès ' + results);
