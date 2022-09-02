@@ -127,7 +127,7 @@ app.post("/login", function (req, res,) {
 
 
 
-app.post("/sneakers", function (req, res,) {
+app.get("/sneakers", function (req, res,) {
 
   const URL = 'https://stockx.com/fr-fr/new-releases/sneakers'
 

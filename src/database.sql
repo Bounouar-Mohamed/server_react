@@ -19,7 +19,9 @@ CREATE TABLE IF NOT EXISTS sneakers (
 
     users_ID SERIAL PRIMARY KEY,
     name VARCHAR NOT NULL,
-    sexe VARCHAR NOT NULL,
-    price VARCHAR NOT NULL
-
+    date VARCHAR NOT NULL,
+    color VARCHAR NOT NULL,
+    image VARCHAR NOT NULL,
+    priceDemande VARCHAR NOT NULL,
+    priceOffre VARCHAR NOT NULL
 );
