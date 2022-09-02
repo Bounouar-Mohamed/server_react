@@ -127,37 +127,38 @@ app.post("/login", function (req, res,) {
 
 
 
-app.get("/sneakers", function (req, res,) {
+app.post("/sneakers", function (req, res,) {
 
-  const URL = 'https://stockx.com/fr-fr/new-releases/sneakers'
+const URL = 'https://www.nike.com/fr/w/hommes-100-150-training-chaussures-58jtoz5ptluznik1zy7ok'
 
-  axios(URL)
-    .then(res => {
+axios(URL)
+  .then(res => {
 
-      const htmlData = res.data
-      const $ = cheerio.load(htmlData)
+    const htmlData = res.data
+    const $ = cheerio.load(htmlData)
 
-      console.log(res)
+    // res.send(res)
+    // console.log(res)
+    //const Sneakers = []
+
+    $('.product-card__body', htmlData).each((index, element) => {
+
+      const name = $(element).children().find('.product-card__title').text()
+      const sexe = $(element).children().find('.product-card__subtitle').text()
+      const price = $(element).children().find('.product-price').text()
 
 
-      $('.css-16q1f7u', htmlData).each((index, element) => {
+      pool.query(` INSERT INTO "sneakers" (name,sexe,price) VALUES ($1,$2,$3)`, [name, sexe, price], (error, results) => {
+        console.log(name, sexe, price)
 
-        const name = $(element).children().find('.chakra-text.css-1pjnepo').text()
-        const date = $(element).children().find('.chakra-text.css-qoqqmm').text()
-        const color = $(element).children().find('.chakra-text.css-1fo8xgy').text()
-        const image = $(element).children().find('.chakra-image.css-0').find('img').attr('src')
-        const priceDemande = $(element).children().find('.css-19nzkj2').text()
-        const priceOffre = $(element).children().find('.css-dk7okq').text()
- 
-        pool.query(` INSERT INTO "sneakers" (name,date,color,image,priceDemande,priceOffre) VALUES ($1,$2,$3,$4,$5)`, [name, date, color, image, priceDemande, priceOffre], (error, results) => {
-          if (error) throw error;
-          console.log('Inscription effectuée avec succès ' + results);
+        if (error) throw error;
+        console.log('Inscription effectuée avec succès ' + results);
 
-        });
+      });
+    })
 
-      })
+  }).catch(err => console.error(err))
 
-    }).catch(err => console.error(err))
 })
 
 
@@ -231,3 +232,34 @@ app.post("/articles", function (req, res,) {
   });
 
 })
+
+{/*   const URL = 'https://stockx.com/fr-fr/new-releases/sneakers'
+
+  axios(URL)
+    .then(res => {
+
+      const htmlData = res.data
+      const $ = cheerio.load(htmlData)
+
+      // console.log(res)
+
+
+      $('.css-16q1f7u', htmlData).each((index, element) => {
+
+        const name = $(element).children().find('.chakra-text.css-1pjnepo').text()
+        const date = $(element).children().find('.chakra-text.css-qoqqmm').text()
+        const color = $(element).children().find('.chakra-text.css-1fo8xgy').text()
+        const image = $(element).children().find('.chakra-image.css-0').find('img').attr('src')
+        const priceDemande = $(element).children().find('.css-19nzkj2').text()
+        const priceOffre = $(element).children().find('.css-dk7okq').text()
+ 
+        console.log(name)
+        pool.query(` INSERT INTO "sneakers" (name, date, color ,image, priceDemande, priceOffre) VALUES ($1,$2,$3,$4,$5)`, [name, date, color, image, priceDemande, priceOffre], (error, results) => {
+          if (error) throw error;
+          console.log('Inscription effectuée avec succès ' + results);
+
+        });
+      })
+
+    }).catch(err => console.error(err))
+  */}
