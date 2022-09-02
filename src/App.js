@@ -129,34 +129,31 @@ app.post("/login", function (req, res,) {
 
 app.post("/sneakers", function (req, res,) {
 
-const URL = 'https://www.nike.com/fr/w/hommes-100-150-training-chaussures-58jtoz5ptluznik1zy7ok'
+  const URL = 'https://www.nike.com/fr/w/hommes-100-150-training-chaussures-58jtoz5ptluznik1zy7ok'
 
-axios(URL)
-  .then(res => {
+  axios(URL)
+    .then(res => {
 
-    const htmlData = res.data
-    const $ = cheerio.load(htmlData)
+      const htmlData = res.data
+      const $ = cheerio.load(htmlData)
+      //const Sneakers = []
 
-    // res.send(res)
-    // console.log(res)
-    //const Sneakers = []
+      $('.product-card__body', htmlData).each((index, element) => {
 
-    $('.product-card__body', htmlData).each((index, element) => {
-
-      const name = $(element).children().find('.product-card__title').text()
-      const sexe = $(element).children().find('.product-card__subtitle').text()
-      const price = $(element).children().find('.product-price').text()
+        const name = $(element).children().find('.product-card__title').text()
+        const sexe = $(element).children().find('.product-card__subtitle').text()
+        const price = $(element).children().find('.product-price').text()
 
 
-      pool.query(` INSERT INTO "testsneakers" (name,sexe,price) VALUES ($1,$2,$3)`, [name, sexe, price], (error, results) => {
+        connection.query(` INSERT INTO "testsneakers" (name,sexe,price) VALUES ($1,$2,$3)`, [name, sexe, price], (error, results) => {
+          if (error) throw error;
+          console.log('Inscription effectuée avec succès ' + results);
 
-        if (error) throw error;
-        console.log('Inscription effectuée avec succès ' + results);
+        });
 
-      });
-    })
-
-  }).catch(err => console.error(err))
+      })
+      //console.log(Sneakers)
+    }).catch(err => console.error(err))
 
 })
 
