@@ -37,7 +37,7 @@ pool.connect();
 
 
 
-app.get('/', function (req, res) {
+app.use('/', function (req, res) {
 
   res.send('server run on port 4000')
 
