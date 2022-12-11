@@ -25,3 +25,11 @@ CREATE TABLE IF NOT EXISTS sneakers (
     priceDemande VARCHAR NOT NULL,
     priceOffre VARCHAR NOT NULL
 );
+
+CREATE TABLE IF NOT EXISTS testsneakers (
+
+    users_ID SERIAL PRIMARY KEY,
+    name VARCHAR NOT NULL,
+    sexe VARCHAR NOT NULL,
+    price VARCHAR NOT NULL,
+);
